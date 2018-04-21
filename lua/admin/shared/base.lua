@@ -1,3 +1,6 @@
+m_Entity = FindMetaTable( "Entity" )
+m_Player = FindMetaTable( "Player" )
+
 Admin.Ranks = Admin.Ranks || {}
 Admin.Ranks.user = nil
 Admin.Ranks.mod = "user"
@@ -8,13 +11,15 @@ Admin.Ranks.owner = "superadmin"
 Admin.Flags = Admin.Flags || {}
 Admin.Flags.VIP = 1
 
-function _Player:GetUserGroup()
+Admin.Command = Admin.Command || {}
+
+function m_Player:GetUserGroup()
 
 	return self:GetNWString( "rank" ) || "user"
 
 end
 
-function _Player:IsUserGroup( g, strict )
+function m_Player:IsUserGroup( g, strict )
 
 	local group = self:GetUserGroup()
 
