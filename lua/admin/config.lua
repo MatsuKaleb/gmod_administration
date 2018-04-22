@@ -6,6 +6,13 @@ cfg.Gamemode = "none" -- ttt or darkrp
 cfg.ChatCommandPrefix = "!"
 cfg.ConCommand = "admin"
 
+cfg.DB_Host = ""
+cfg.DB_User = ""
+cfg.DB_Pass = ""
+cfg.DB_Name = ""
+cfg.DB_Port = ""
+
+
 local clrs = Admin.Config.Colors
 clrs.Main = Color( 240, 240, 240 )
 clrs.Caller = Color( 20, 130, 180 )

@@ -1,6 +1,6 @@
 function Admin:GetChatCommand( msg )
 
-	return ( string.match( msg, "%w+" ) or "" ):lower()
+	return ( string.match( msg, "%w+" ) || "" ):lower()
 
 end
 
@@ -11,7 +11,7 @@ function Admin:GetChatArgs( msg )
 
 	for match in string.gmatch( msg, "[^ ]+" ) do
 
-		if ( first ) then first = false else
+		if first then first = false else
 
 			table.insert( args, match )
 
@@ -71,19 +71,19 @@ function Admin:FindPlayer( name, def, nonum, noimmunity )
 
 	local matches = {}
 
-	if ( !name || #name == 0 ) then
+	if !name || #name == 0 then
 
-		matches[1] = def
+		matches[ 1 ] = def
 
 	else
 
-		if ( type( name ) != "table" ) then name = { name } end
+		if type( name ) != "table" then name = { name } end
 
 		local name2 = table.Copy( name )
 
-		if ( nonum ) then
+		if nonum  then
 
-			if ( #name2 > 1 && tonumber( name2[ #name2 ] ) ) then table.remove( name2, #name2 ) end
+			if #name2 > 1 && tonumber( name2[ #name2 ] ) then table.remove( name2, #name2 ) end
 
 		end
 
@@ -160,7 +160,7 @@ hook.Add( "PlayerSay", "AdminChatCommands", function( ply, text )
 
 					res, ret = pcall( cmd.Function, cmd, ply, args )
 
-					if ( !res ) then
+					if !res then
 
 						print( ret )
 
@@ -195,7 +195,7 @@ function Admin:ConCommand( ply, _command, command_args )
 
 			res, ret = pcall( cmd.Function, cmd, ply, args )
 
-			if ( !res ) then
+			if !res then
 
 				print( ret )
 

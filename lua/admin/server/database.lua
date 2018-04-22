@@ -3,13 +3,11 @@ require( "tmysql4" )
 Admin.DB = Admin.DB || {}
 
 Admin.DB.QueryQueue = {}
-Admin.DB.Host = ""
-Admin.DB.User = ""
-Admin.DB.Pass = ""
-Admin.DB.Name = ""
-Admin.DB.Port = ""
-
-Admin.DB.Prefix = ""
+Admin.DB.Host = Admin.Config.DB_Host
+Admin.DB.User = Admin.Config.DB_User
+Admin.DB.Pass = Admin.Config.DB_Pass
+Admin.DB.Name = Admin.Config.DB_Name
+Admin.DB.Port = Admin.Config.DB_Port
 
 function Admin.DB:Init()
 
