@@ -2,7 +2,6 @@ Admin.Config = Admin.Config || {}
 Admin.Config.Colors = Admin.Config.Colors || {}
 
 local cfg = Admin.Config
-cfg.Gamemode = "none" -- ttt or darkrp
 cfg.ChatCommandPrefix = "!"
 cfg.ConCommand = "admin"
 

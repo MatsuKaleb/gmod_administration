@@ -17,48 +17,52 @@ for _, file in ipairs( file.Find( "admin/shared/*.lua", "LUA" ) ) do
 
 end
 
-local gamemode = Admin.Config.Gamemode
+hook.Add( "Initialize", "Admin_Gamemode_Module_Autodetect", function()
 
-if file.Find( "admin/commands/" .. gamemode, "LUA" ) then
+	local gamemode = engine.ActiveGamemode()
 
-	for _, file in ipairs( file.Find( "admin/commands/" .. gamemode .. "/*.lua", "LUA" ) ) do
+	if file.Find( "admin/commands/" .. gamemode, "LUA" ) then
 
-		if string.StartWith( file, "sv_" ) then
+		for _, file in ipairs( file.Find( "admin/commands/" .. gamemode .. "/*.lua", "LUA" ) ) do
 
-			if ( SERVER ) then
+			if string.StartWith( file, "sv_" ) then
 
-				include( "admin/commands/" .. gamemode .. "/" .. file )
+				if ( SERVER ) then
 
-				Admin.ConsoleMessage( "Loaded Server File: admin/commands/" .. gamemode .. "/" .. file )
+					include( "admin/commands/" .. gamemode .. "/" .. file )
 
-			end
+					Admin.ConsoleMessage( "Loaded Server File: admin/commands/" .. gamemode .. "/" .. file )
 
-		elseif string.StartWith( file, "cl_" ) then
+				end
 
-			if ( SERVER ) then
+			elseif string.StartWith( file, "cl_" ) then
 
-				AddCSLuaFile( "admin/commands/" .. gamemode .. "/" .. file )
+				if ( SERVER ) then
 
-				Admin.ConsoleMessage( "Loaded Client File: admin/commands/" .. gamemode .. "/" .. file )
+					AddCSLuaFile( "admin/commands/" .. gamemode .. "/" .. file )
 
-			else
+					Admin.ConsoleMessage( "Loaded Client File: admin/commands/" .. gamemode .. "/" .. file )
 
-				include( "admin/commands/" .. gamemode .. "/" .. file )
+				else
 
-			end
+					include( "admin/commands/" .. gamemode .. "/" .. file )
 
-		elseif string.StartWith( file, "sh_" ) then
+				end
 
-			if ( SERVER ) then
+			elseif string.StartWith( file, "sh_" ) then
 
-				AddCSLuaFile( "admin/commands/" .. gamemode .. "/" .. file )
-				include( "admin/commands/" .. gamemode .. "/" .. file )
+				if ( SERVER ) then
 
-				Admin.ConsoleMessage( "Loaded Shared File: admin/commands/" .. gamemode .. "/" .. file )
+					AddCSLuaFile( "admin/commands/" .. gamemode .. "/" .. file )
+					include( "admin/commands/" .. gamemode .. "/" .. file )
 
-			else
+					Admin.ConsoleMessage( "Loaded Shared File: admin/commands/" .. gamemode .. "/" .. file )
 
-				include( "admin/commands/" .. gamemode .. "/" .. file )
+				else
+
+					include( "admin/commands/" .. gamemode .. "/" .. file )
+
+				end
 
 			end
 
@@ -66,7 +70,7 @@ if file.Find( "admin/commands/" .. gamemode, "LUA" ) then
 
 	end
 
-end
+end )
 
 for _, file in ipairs( file.Find( "admin/commands/default/*.lua", "LUA" ) ) do
 
