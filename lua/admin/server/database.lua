@@ -1,4 +1,4 @@
-require( "tmysql4" )
+require( "mysqloo" )
 
 Admin.DB = Admin.DB || {}
 
@@ -12,11 +12,15 @@ Admin.DB.Port = Admin.Config.DB_Port
 function Admin.DB:Init()
 
 	Admin.ConsoleMessage( "MySQL -> Connecting to database.." )
-	Admin.DB.MySQL, err = tmysql.initialize( Admin.DB.Host, Admin.DB.User, Admin.DB.Pass, Admin.DB.Name, Admin.DB.Port )
+	Admin.DB.MySQL, db = mysqloo.connect( Admin.DB.Host, Admin.DB.User, Admin.DB.Pass, Admin.DB.Name, Admin.DB.Port )
 
-	if err && err != "" then
+	if !db then
 
-		Admin.ConsoleMessage( "MySQL -> Connection FAILED: " .. err )
+		Admin.ConsoleMessage( "MySQL -> Connection Failed" )
+
+	else
+
+		Admin.ConsoleMessage( "MySQL -> Connection Successful \n" .. Admin.DB.MySQL:serverInfo() )
 
 	end
 
@@ -24,14 +28,15 @@ end
 
 function Admin.DB:Escape( str )
 
-	return "\"" .. Admin.DB.MySQL:Escape( tostring( str ) ) .. "\""
+	return "\"" .. Admin.DB.MySQL:escape( tostring( str ) ) .. "\""
+
 end
 
 function Admin.DB:RunPreparedQuery( q )
 
 	q.callback = q.callback || function() end
 
-	Admin.DB.MySQL:Query( q.sql, function( data )
+	Admin.DB.MySQL:query( q.sql, function( data )
 
 		if !data || !data[ 1 ] then
 
