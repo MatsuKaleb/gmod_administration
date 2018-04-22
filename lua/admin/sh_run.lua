@@ -124,7 +124,22 @@ for _, directory_name in ipairs( directories ) do
 
 	for _, file in pairs( file.Find( "admin/modules/" .. directory_name .. "/*.lua", "LUA" ) ) do
 
-		if string.StartWith( file, "sv_" ) then
+		if string.StartWith( file, "sh_" ) then
+
+			if ( SERVER ) then
+
+				AddCSLuaFile( "admin/modules/" .. directory_name .. "/" .. file )
+				include( "admin/modules/" .. directory_name .. "/" .. file )
+
+				Admin.ConsoleMessage( "Loaded Module: " .. directory_name .." -> File: admin/modules/" .. directory_name .. "/" .. file )
+
+			else
+
+				include( "admin/modules/" .. directory_name .. "/" .. file )
+
+			end
+
+		elseif string.StartWith( file, "sv_" ) then
 
 			if ( SERVER ) then
 
@@ -142,21 +157,6 @@ for _, directory_name in ipairs( directories ) do
 
 				Admin.ConsoleMessage( "Loaded Module: " .. directory_name .." -> File: admin/modules/" .. directory_name .. "/" .. file )
 
-
-			else
-
-				include( "admin/modules/" .. directory_name .. "/" .. file )
-
-			end
-
-		elseif string.StartWith( file, "sh_" ) then
-
-			if ( SERVER ) then
-
-				AddCSLuaFile( "admin/modules/" .. directory_name .. "/" .. file )
-				include( "admin/modules/" .. directory_name .. "/" .. file )
-
-				Admin.ConsoleMessage( "Loaded Module: " .. directory_name .." -> File: admin/modules/" .. directory_name .. "/" .. file )
 
 			else
 

@@ -1,13 +1,13 @@
 -- Set Health
-Admin.Command.SetHealth = Admin.Command.SetHealth || {}
-Admin.Command.SetHealth.Title = "SetHealth"
-Admin.Command.SetHealth.Desc = "Sets the health of a player"
-Admin.Command.SetHealth.Command = "health"
-Admin.Command.SetHealth.Access = "mod"
+Admin.Command.Health = Admin.Command.Health || {}
+Admin.Command.Health.Title = "Health"
+Admin.Command.Health.Desc = "Sets the health of a player"
+Admin.Command.Health.Command = "health"
+Admin.Command.Health.Access = "mod"
 
-function Admin.Command.SetHealth:Function( caller, args )
+function Admin.Command.Health:Function( caller, args )
 
-	--if !caller:IsUserGroup( Admin.Command.SetHealth.Access ) then
+	--if !caller:IsUserGroup( Admin.Command.Health.Access ) then
 
 		--caller:SendMessage( { Admin.Config.Colors.NotAllowed, "You do not have access" } )
 
@@ -41,15 +41,15 @@ function Admin.Command.SetHealth:Function( caller, args )
 end
 
 -- Set Armor
-Admin.Command.SetArmor = Admin.Command.SetArmor || {}
-Admin.Command.SetArmor.Title = "SetArmor"
-Admin.Command.SetArmor.Desc = "Sets the armor of a player"
-Admin.Command.SetArmor.Command = "armor"
-Admin.Command.SetArmor.Access = "mod"
+Admin.Command.Armor = Admin.Command.Armor || {}
+Admin.Command.Armor.Title = "Armor"
+Admin.Command.Armor.Desc = "Sets the armor of a player"
+Admin.Command.Armor.Command = "armor"
+Admin.Command.Armor.Access = "mod"
 
-function Admin.Command.SetArmor:Function( caller, args )
+function Admin.Command.Armor:Function( caller, args )
 
-	--if !caller:IsUserGroup( Admin.Command.SetArmor.Access ) then
+	--if !caller:IsUserGroup( Admin.Command.Armor.Access ) then
 
 		--caller:SendMessage( { Admin.Config.Colors.NotAllowed, "You do not have access" } )
 
@@ -83,15 +83,15 @@ function Admin.Command.SetArmor:Function( caller, args )
 end
 
 -- Set God Mode
-Admin.Command.SetGodMode = Admin.Command.SetGodMode || {}
-Admin.Command.SetGodMode.Title = "SetGodMode"
-Admin.Command.SetGodMode.Desc = "Enables/disables godmode on a player."
-Admin.Command.SetGodMode.Command = "god"
-Admin.Command.SetGodMode.Access = "mod"
+Admin.Command.GodMode = Admin.Command.GodMode || {}
+Admin.Command.GodMode.Title = "GodMode"
+Admin.Command.GodMode.Desc = "Enables/disables godmode on a player."
+Admin.Command.GodMode.Command = "god"
+Admin.Command.GodMode.Access = "mod"
 
-function Admin.Command.SetGodMode:Function( caller, args )
+function Admin.Command.GodMode:Function( caller, args )
 
-	--if !caller:IsUserGroup( Admin.Command.SetGodMode.Access ) then
+	--if !caller:IsUserGroup( Admin.Command.GodMode.Access ) then
 
 		--caller:SendMessage( { Admin.Config.Colors.NotAllowed, "You do not have access" } )
 
@@ -130,5 +130,36 @@ function Admin.Command.SetGodMode:Function( caller, args )
 	end
 
 	Admin:SendMessageAll( { Admin.Config.Colors.Caller, caller:Nick(), Admin.Config.Colors.Types[ type( args[ #args ] ) ], godmode_enabled && " enabled" || " disabled", Admin.Config.Colors.Main, " godmode on ", Admin.Config.Colors.Target, #targets > 1 && Admin:PlayerListForCommands( targets ) || targets[ 1 ]:Nick() } )
+
+end
+
+-- NoClip
+Admin.Command.NoClip = Admin.Command.NoClip || {}
+Admin.Command.NoClip.Title = "NoClip"
+Admin.Command.NoClip.Desc = "Enables/disables noclip."
+Admin.Command.NoClip.Command = "noclip"
+Admin.Command.NoClip.Access = "admin"
+
+function Admin.Command.NoClip:Function( caller )
+
+	--if !caller:IsUserGroup( Admin.Command.NoClip.Access ) then
+
+		--caller:SendMessage( { Admin.Config.Colors.NotAllowed, "You do not have access" } )
+
+		--return
+
+	--end
+
+	if caller:GetMoveType() == MOVETYPE_WALK then
+
+		caller:SetMoveType( MOVETYPE_NOCLIP )
+
+	else
+
+		caller:SetMoveType( MOVETYPE_WALK )
+
+	end
+
+	Admin:SendMessageAll( { Admin.Config.Colors.Caller, caller:Nick(), Admin.Config.Colors.Main, ( caller:GetMoveType() == MOVETYPE_NOCLIP ) && " enabled " or " disabled ", "noclip" } )
 
 end

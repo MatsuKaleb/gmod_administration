@@ -1,0 +1,1 @@
+Admin.Warnings = Admin.Warnings || {}
