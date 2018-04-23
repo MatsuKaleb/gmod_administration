@@ -1,17 +1,40 @@
-Admin.ConsoleMessage( "Loaded Shared Side" )
+Admin = Admin || {}
 
-for _, file in ipairs( file.Find( "admin/shared/*.lua", "LUA" ) ) do
+function Admin.ConsoleMessage( msg )
 
 	if ( SERVER ) then
 
-		AddCSLuaFile( "admin/shared/" .. file )
-		include( "admin/shared/" .. file )
+		print( "[Admin] -> " .. msg )
 
-		Admin.ConsoleMessage( "Loaded Shared File: admin/shared/" .. file )
+	end
+
+end
+
+if ( SERVER ) then
+
+	AddCSLuaFile( "admin/config.lua" )
+	include( "admin/config.lua" )
+
+else
+
+	include( "admin/config.lua" )
+
+end
+
+Admin.ConsoleMessage( "Loaded Shared Side" )
+
+for _, file in ipairs( file.Find( "admin/admin/shared/*.lua", "LUA" ) ) do
+
+	if ( SERVER ) then
+
+		AddCSLuaFile( "admin/admin/shared/" .. file )
+		include( "admin/admin/shared/" .. file )
+
+		Admin.ConsoleMessage( "Loaded Shared File: admin/admin/shared/" .. file )
 
 	else
 
-		include( "admin/shared/" .. file )
+		include( "admin/admin/shared/" .. file )
 
 	end
 
